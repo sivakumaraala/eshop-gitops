@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: catalog-api
-          image: testmicroservicedevcqr4acr.azurecr.io/eshop/catalog.api:latest
+          image: YOUR_ACR_NAME.azurecr.io/eshop/catalog.api:prod
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

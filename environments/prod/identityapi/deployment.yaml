@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: identity-api
-          image: testmicroservicedevcqr4acr.azurecr.io/eshop/identity.api:latest
+          image: YOUR_ACR_NAME.azurecr.io/eshop/identity.api:prod
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

@@ -8,6 +8,6 @@ data:
   ASPNETCORE_ENVIRONMENT: Development
   EventBus__SubscriptionClientName: Ordering.webapp
   ConnectionStrings__eventbus: amqp://eshop:eshop@eventbus:5672/
-  IdentityUrl: http://testmicroservice-dev-identity.centralus.cloudapp.azure.com
-  CallBackUrl: http://testmicroservice-dev-webapp.centralus.cloudapp.azure.com
+  IdentityUrl: https://YOUR_IDENTITY_HOST
+  CallBackUrl: https://YOUR_WEBAPP_HOST
   SessionCookieLifetimeMinutes: "60"

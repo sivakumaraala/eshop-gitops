@@ -7,4 +7,4 @@ data:
   ASPNETCORE_URLS: http://+:8080
   ASPNETCORE_ENVIRONMENT: Development
   ConnectionStrings__identitydb: Host=identitydb;Port=5432;Database=identitydb;Username=postgres;Pooling=false;Include Error Detail=true
-  WebAppClient: http://testmicroservice-dev-webapp.centralus.cloudapp.azure.com
+  WebAppClient: https://YOUR_WEBAPP_HOST

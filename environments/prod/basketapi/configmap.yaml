@@ -8,5 +8,5 @@ data:
   ASPNETCORE_ENVIRONMENT: Development
   ConnectionStrings__Redis: redis:6379
   ConnectionStrings__EventBus: amqp://eshop:eshop@eventbus:5672/
-  Identity__Url: http://testmicroservice-dev-identity.centralus.cloudapp.azure.com
+  Identity__Url: https://YOUR_IDENTITY_HOST
 

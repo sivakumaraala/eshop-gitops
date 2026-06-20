@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: ordering-api
-          image: testmicroservicedevcqr4acr.azurecr.io/eshop/ordering.api:latest
+          image: YOUR_ACR_NAME.azurecr.io/eshop/ordering.api:prod
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

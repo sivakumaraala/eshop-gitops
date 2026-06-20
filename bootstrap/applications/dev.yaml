@@ -6,7 +6,7 @@ metadata:
 spec:
   project: test-microservice-platform
   source:
-    repoURL: https://tnzrhub.ghe.com/TNZR-McGaw/test-microservice-gitops.git
+    repoURL: https://YOUR_GITOPS_REPO_URL.git
     targetRevision: main
     path: environments/dev
   destination:

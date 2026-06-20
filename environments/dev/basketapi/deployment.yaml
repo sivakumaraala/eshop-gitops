@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: basket-api
-          image: testmicroservicedevcqr4acr.azurecr.io/eshop/basket.api:dev-20260618
+          image: YOUR_ACR_NAME.azurecr.io/eshop/basket.api:dev
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
