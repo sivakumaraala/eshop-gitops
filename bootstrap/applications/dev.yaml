@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-microservice-dev
+  namespace: argocd
+spec:
+  project: test-microservice-platform
+  source:
+    repoURL: https://tnzrhub.ghe.com/TNZR-McGaw/test-microservice-gitops.git
+    targetRevision: main
+    path: environments/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

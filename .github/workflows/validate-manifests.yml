@@ -1,0 +1,72 @@
+name: Validate Manifests
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kustomize
+        run: |
+          curl -sSLo kustomize.tar.gz \
+            https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.4.2/kustomize_v5.4.2_linux_amd64.tar.gz
+          tar -xzf kustomize.tar.gz
+          sudo mv kustomize /usr/local/bin/kustomize
+
+      - name: Validate bootstrap
+        run: kustomize build bootstrap >/dev/null
+
+      - name: Validate dev environment
+        run: kustomize build environments/dev >/dev/null
+
+      - name: Validate prod environment
+        run: kustomize build environments/prod >/dev/null
+
+  trivy-config:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kustomize
+        run: |
+          curl -sSLo kustomize.tar.gz \
+            https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.4.2/kustomize_v5.4.2_linux_amd64.tar.gz
+          tar -xzf kustomize.tar.gz
+          sudo mv kustomize /usr/local/bin/kustomize
+
+      - name: Render manifests for Trivy
+        run: |
+          mkdir -p .trivy-render
+          kustomize build bootstrap > .trivy-render/bootstrap.yaml
+          kustomize build environments/dev > .trivy-render/dev.yaml
+          kustomize build environments/prod > .trivy-render/prod.yaml
+
+      - name: Run Trivy config scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .trivy-render
+          scanners: misconfig
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          format: table
+          hide-progress: true
+          token-setup-trivy: ${{ secrets.TRIVY_SETUP_TRIVY_TOKEN }}

@@ -1,0 +1,13 @@
+resources:
+  - blackbox-configmap.yaml
+  - blackbox-deployment.yaml
+  - blackbox-service.yaml
+  - grafana-admin-secret.yaml
+  - grafana-dashboard-provider-configmap.yaml
+  - grafana-dashboard-webapp-configmap.yaml
+  - grafana-datasource-configmap.yaml
+  - grafana-deployment.yaml
+  - grafana-service.yaml
+  - prometheus-configmap.yaml
+  - prometheus-deployment.yaml
+  - prometheus-service.yaml

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring-prometheus
+  namespace: dev
+  labels:
+    app.kubernetes.io/name: monitoring-prometheus
+    app.kubernetes.io/part-of: test-microservice
+spec:
+  selector:
+    app.kubernetes.io/name: monitoring-prometheus
+  ports:
+    - name: http
+      port: 9090
+      targetPort: http
+  type: ClusterIP

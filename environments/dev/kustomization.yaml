@@ -1,0 +1,15 @@
+resources:
+  - namespace.yaml
+  - resourcequota.yaml
+  - limitrange.yaml
+  - eventbus
+  - catalogdb
+  - catalogapi
+  - redis
+  - basketapi
+  - orderingdb
+  - orderingapi
+  - identitydb
+  - identityapi
+  - monitoring
+  - webapp

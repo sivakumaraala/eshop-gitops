@@ -1,0 +1,4 @@
+# trigger Argo CD resync
+resources:
+  - applications/dev.yaml
+  - applications/prod.yaml

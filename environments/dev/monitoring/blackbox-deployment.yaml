@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-blackbox-exporter
+  namespace: dev
+  labels:
+    app.kubernetes.io/name: monitoring-blackbox-exporter
+    app.kubernetes.io/part-of: test-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: monitoring-blackbox-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: monitoring-blackbox-exporter
+        app.kubernetes.io/part-of: test-microservice
+    spec:
+      containers:
+        - name: blackbox-exporter
+          image: prom/blackbox-exporter:v0.25.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config.file=/etc/blackbox/blackbox.yml
+          ports:
+            - containerPort: 9115
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /etc/blackbox
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+      volumes:
+        - name: config
+          configMap:
+            name: monitoring-blackbox-config

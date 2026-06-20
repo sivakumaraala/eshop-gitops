@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-prometheus
+  namespace: dev
+  labels:
+    app.kubernetes.io/name: monitoring-prometheus
+    app.kubernetes.io/part-of: test-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: monitoring-prometheus
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: monitoring-prometheus
+        app.kubernetes.io/part-of: test-microservice
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:v2.55.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --storage.tsdb.retention.time=3d
+          ports:
+            - containerPort: 9090
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prometheus
+            - name: data
+              mountPath: /prometheus
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+      volumes:
+        - name: config
+          configMap:
+            name: monitoring-prometheus-config
+        - name: data
+          emptyDir: {}
